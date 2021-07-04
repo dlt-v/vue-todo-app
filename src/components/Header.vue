@@ -1,18 +1,28 @@
 <template>
     <header>
-        <h1>Task Tracker</h1>
+        <h1>{{title}}</h1>
+        <Button text="Add Task" color="green"/>
     </header>
 </template>
 
 <script>
+import Button from './Button.vue';
+
 export default {
-    setup() {
-        name: 'Header'
+    name: 'Header',
+    props: {
+        title: {
+            type: String,
+            default: "Hello World!"
+        }
     },
+    components: {
+        Button
+    }
 }
 </script>
 
-<style>
+<style style="scss">
     header {
         display: flex;
         justify-content: space-between;
