@@ -1,107 +1,118 @@
 <template>
-<div class="container">
-  <Header title="Task Tracker"/>
-  <Tasks @toggleReminder="toggleReminder" @deleteTask="deleteTask" :tasks="tasks"/>
-</div>
+    <div class="container">
+        <Header title="Task Tracker" @toggleAddTask="toggleAddTask"/>
+        <AddTask @addTask="addTask"  v-if="showAddTask"/>
+        <Tasks
+            @toggleReminder="toggleReminder"
+            @deleteTask="deleteTask"
+            :tasks="tasks"  
+        />
+    </div>
 </template>
 
 <script>
-import Header from './components/Header';
-import Tasks from './components/Tasks';
+import Header from "./components/Header";
+import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 
 export default {
-  name: "App",
-  components: {
-    Header,
-    Tasks,
-
-  },
-  data() {
-    return {
-      tasks: []
-    }
-  },
-  methods: {
-    deleteTask(id) {
-      if(confirm('Are you sure?')) {
-        this.tasks = this.tasks.filter((task) => task.id !== id)
-
-      }
+    name: "App",
+    components: {
+        Header,
+        Tasks,
+        AddTask
     },
-    toggleReminder(id) {
-        this.tasks = this.tasks.map( task => 
-          task.id === id ? {...task, reminder: !task.reminder} : task)
-
+    data() {
+        return {
+            tasks: [],
+            showAddTask: false
+        };
+    },
+    methods: {
+        toggleAddTask() {
+            this.showAddTask = !this.showAddTask;
+            console.log('?Hello');
+        },
+        addTask(newTask) {
+            this.tasks = [...this.tasks, newTask];
+        },
+        deleteTask(id) {
+            if (confirm("Are you sure?")) {
+                this.tasks = this.tasks.filter(task => task.id !== id);
+            }
+        },
+        toggleReminder(id) {
+            this.tasks = this.tasks.map(task =>
+                task.id === id ? { ...task, reminder: !task.reminder } : task
+            );
+        }
+    },
+    created() {
+        this.tasks = [
+            {
+                id: 1,
+                text: "Doctors Appointment",
+                day: "March 1st at 2:30pm",
+                reminder: true
+            },
+            {
+                id: 2,
+                text: "Moms birthday",
+                day: "May 15th at 7:30pm",
+                reminder: true
+            },
+            {
+                id: 3,
+                text: "Office Meeting",
+                day: "September 16th at 1:30pm",
+                reminder: false
+            }
+        ];
     }
-  },
-  emits: ['deleteTask', 'toggleReminder'],
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: 'Doctors Appointment',
-        day: 'March 1st at 2:30pm',
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: 'Moms birthday',
-        day: 'May 15th at 7:30pm',
-        reminder: true,
-      },
-      {
-        id: 3,
-        text: 'Office Meeting',
-        day: 'September 16th at 1:30pm',
-        reminder: false,
-      },
-    ]
-  },
 };
 </script>
 
 <style lang="scss">
-
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
 
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 body {
-  font-family: "Poppins", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 .container {
-  max-width: 500px;
-  margin: 30px auto;
-  overflow: auto;
-  min-height: 300px;
-  border: 3px solid $blue;
-  padding: 30px;
-  border-radius: 5px;
+    max-width: 500px;
+    margin: 30px auto;
+    overflow: auto;
+    min-height: 300px;
+    border: 3px solid $blue;
+    padding: 30px;
+    border-radius: 5px;
 }
 .btn {
-  display: inline-block;
-  background: #000;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 15px;
-  font-family: inherit;
+    display: inline-block;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: inherit;
 }
 .btn:focus {
-  outline: none;
+    outline: none;
 }
 .btn:active {
-  transform: scale(0.98);
+    transform: scale(0.98);
 }
 .btn-block {
-  display: block;
-  width: 100%;
+    display: block;
+    width: 100%;
 }
 </style>
