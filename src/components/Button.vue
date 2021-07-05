@@ -17,8 +17,8 @@ export default {
     },
     methods: {
         onClick() {
-            this.$emit('toggleAddTask')
-            console.log("Emitting 'toggleAddTask to Header'");
+            this.$emit('btnClick')
+            // console.log("Emitting 'toggleAddTask to Header'");
         }
     }
 }

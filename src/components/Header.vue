@@ -2,9 +2,9 @@
     <header>
         <h1>{{ title }}</h1>
         <Button
-            @toggleAddTask="toggleAddTask"
-            text="Add Task"
-            color="green"
+            @btnClick="toggleAddTask"
+            :text="showAddTask ? 'Close' : 'Add Task'"
+            :color="showAddTask ? 'red' : 'green'"
         />
     </header>
 </template>
@@ -18,13 +18,17 @@ export default {
         title: {
             type: String,
             default: "Hello World!"
+        },
+        showAddTask: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {
         toggleAddTask() {
             this.$emit('toggleAddTask')
-            console.log("Taken 'toggleAddTask' from button component.");
-            console.log("Emitted 'toggleAddTask' to app component.");
+            // console.log("Taken 'toggleAddTask' from button component.");
+            // console.log("Emitted 'toggleAddTask' to app component.");
         }
     },
     components: {
