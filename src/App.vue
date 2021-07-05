@@ -1,7 +1,7 @@
 <template>
 <div class="container">
   <Header title="Task Tracker"/>
-  <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/>
+  <Tasks @toggleReminder="toggleReminder" @deleteTask="deleteTask" :tasks="tasks"/>
 </div>
 </template>
 
@@ -34,6 +34,7 @@ export default {
 
     }
   },
+  emits: ['deleteTask', 'toggleReminder'],
   created() {
     this.tasks = [
       {
